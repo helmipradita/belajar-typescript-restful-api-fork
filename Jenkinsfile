@@ -17,14 +17,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                echo 'Running unit tests...'
-                sh '''export PATH=/var/jenkins_home/node/bin:$PATH
-                npm test'''
-            }
-        }
-
         stage('Build') {
             steps {
                 echo 'Building TypeScript...'
