@@ -20,7 +20,7 @@ publicRouter.get("/api/health", async (req, res) => {
         status: "running",
         port: process.env.PORT || 8888,
         database: dbStatus,
-        version: "1.0.0",
+        version: "2.0.0",
         timestamp: new Date().toISOString()
     });
 });
