@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_VERSION = '20'
-        DATABASE_URL = 'mysql://root:root@localhost:3306/belajar_typescript_restful_api'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -17,35 +12,40 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing npm dependencies...'
-                sh 'npm ci'
+                sh '''export PATH=/var/jenkins_home/node/bin:$PATH
+                npm ci'''
             }
         }
 
         stage('Run Tests') {
             steps {
                 echo 'Running unit tests...'
-                sh 'npm test'
+                sh '''export PATH=/var/jenkins_home/node/bin:$PATH
+                npm test'''
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building TypeScript...'
-                sh 'npm run build'
+                sh '''export PATH=/var/jenkins_home/node/bin:$PATH
+                npm run build'''
             }
         }
 
         stage('Prisma Generate') {
             steps {
                 echo 'Generating Prisma Client...'
-                sh 'npx prisma generate'
+                sh '''export PATH=/var/jenkins_home/node/bin:$PATH
+                npx prisma generate'''
             }
         }
 
         stage('Security Scan') {
             steps {
                 echo 'Running npm audit...'
-                sh 'npm audit --audit-level=moderate || true'
+                sh '''export PATH=/var/jenkins_home/node/bin:$PATH
+                npm audit --audit-level=moderate || true'''
             }
         }
     }
